@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon -e html,js,css ./app.js"
   },
   "repository": {
     "type": "git",
@@ -23,7 +24,7 @@
     "mime": "^2.0.3",
     "morgan": "^1.9.0",
     "nunjucks": "^3.0.1",
-    "pg": "^7.4.0",
+    "pg": "^6.4.1",
     "pg-hstore": "^2.3.2",
     "sequelize": "^4.22.6",
     "socket.io": "^2.0.4"

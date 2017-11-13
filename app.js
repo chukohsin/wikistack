@@ -14,7 +14,7 @@ var models = require('./models')
 // templating boilerplate setup
 app.engine('html', nunjucks.render); // how to render html templates
 app.set('view engine', 'html'); // what file extension do our templates have
-+nunjucks.configure('views', { noCache: true }); // where to find the views, caching off
+nunjucks.configure('views', { noCache: true }); // where to find the views, caching off
 
 // logging middleware
 app.use(morgan('dev'));
@@ -28,9 +28,9 @@ models.db.sync({force: true})
 .then(function () {
     // make sure to replace the name below with your express app
     var server = app.listen(3000, function () {
-        console.log('Server is listening on port 3001!');
+        console.log('Server is listening on port 3000!');
     });
-    socketio.listen(server);
+    
 })
 .catch(console.error);
 
