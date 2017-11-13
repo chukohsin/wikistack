@@ -24,7 +24,7 @@ app.use(bodyParser.urlencoded({ extended: true })); // for HTML form submits
 app.use(bodyParser.json()); // would be for AJAX requests
 
 
-models.db.sync({force: true})
+models.db.sync()
 .then(function () {
     // make sure to replace the name below with your express app
     var server = app.listen(3000, function () {

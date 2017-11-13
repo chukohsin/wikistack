@@ -28,7 +28,6 @@ const Page = db.define('page', {
 		type: Sequelize.STRING,
 		allowNull: false
 	},
-	// status: {type: Sequelize.ENUM('open', 'closed')}
 	status: Sequelize.ENUM('open', 'closed'),
 	date: {
 		type: Sequelize.DATE,
@@ -43,7 +42,7 @@ const Page = db.define('page', {
 	hooks: {
 		beforeValidate: function(page) {
 			if(page.title){
-				page.urlTitle = page.title.replace(/\s+/g, '_').replace(/\W/g, '');
+				page.urlTitle = page.title.replace(/\s+/g, '_').replace(/\W/g, '').toLowerCase();
 			} else {
 				page.urlTitle = Math.random().toString(36).substring(2, 7);
 			}
