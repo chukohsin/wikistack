@@ -3,13 +3,13 @@ var express = require('express');
 var app = express();
 var morgan = require('morgan');
 var nunjucks = require('nunjucks');
-var makesRouter = require('./routes');
-var fs = require('fs');
+var routes = require('./routes/');
+// var fs = require('fs');
 var path = require('path');
-var mime = require('mime');
+// var mime = require('mime');
 var bodyParser = require('body-parser');
-var socketio = require('socket.io');
-var models = require('./models')
+// var socketio = require('socket.io');
+var models = require('./models');
 
 // templating boilerplate setup
 app.engine('html', nunjucks.render); // how to render html templates
@@ -44,6 +44,4 @@ models.db.sync({force: true})
 app.use(express.static(path.join(__dirname, '/public')));
 
 // modular routing that uses io inside it
-app.get('/', function(req, res, next) {
-	res.render('./layout.html');
-});
+app.use('/', routes);

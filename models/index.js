@@ -5,26 +5,28 @@ var db = new Sequelize('postgres://localhost:5432/wikistack',
 const User = db.define('user', {
 	name: {
 		type: Sequelize.STRING, 
-		validate: {allowNull: false}
+		allowNull:false
 	},
 	email: {
 		type: Sequelize.STRING,
-			validate: {isEmail: true, allowNull:false}
+			validate: {isEmail: true},
+			allowNull:false
 		}
 });
 
 const Page = db.define('page', {
+
 	title: {
-		type: Sequelize.STRING, 
-		validate: {allowNull: false}
+		type: Sequelize.STRING, allowNull: false
 	},
 	urlTitle: {
 		type: Sequelize.STRING, 
-		validate: {isUrl: true, allowNull: false}
+		//validate: {isUrl: true},
+		allowNull: false
 	},
 	content: {
-		type: Sequelize.STRING, 
-		validate: {allowNull: false}
+		type: Sequelize.STRING,
+		allowNull: false
 	},
 	// status: {type: Sequelize.ENUM('open', 'closed')}
 	status: Sequelize.ENUM('open', 'closed'),
@@ -37,9 +39,22 @@ const Page = db.define('page', {
 		route() {
 			return '/wiki/' + this.urlTitle;
 		}
+	}, 
+	hooks: {
+		beforeValidate: function(page) {
+			if(page.title){
+				page.urlTitle = page.title.replace(/\s+/g, '_').replace(/\W/g, '');
+			} else {
+				page.urlTitle = Math.random().toString(36).substring(2, 7);
+			}
+		}
 	}
 });
 
-module.exports = {db};
+module.exports = {
+  Page: Page,
+  User: User,
+  db:db
+};
 
 
